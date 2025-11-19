@@ -61,3 +61,8 @@ totalBalance.innerHTML = `₦ ${userBalance}`
 
 
 console.log("Current logged in user:", loggedInName);
+
+const logOut = () => {
+    localStorage.removeItem('currentLoggedInUser')
+    window.location.href = '../sign in/signin.html'
+}

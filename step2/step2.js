@@ -61,11 +61,11 @@ const signUpButton = () => {
                                             <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
                                             <span class="visually-hidden" role="status">Loading...</span>
                                            `
-                                            const cuName = JSON.parse(localStorage.getItem('currentLoggedInUser'))
-                                            alert(`Dear ${cuName} You've created an account sucessfully`)
+                                            const customerName = JSON.parse(localStorage.getItem('currentLoggedInUser'))
+                                            alert(`Dear ${customerName} You've created an account sucessfully`)
                                             tunjiConfirm.push(tunjiConfirmobj)
                                             localStorage.setItem('myConfirm', JSON.stringify(tunjiConfirm))
-                                            console.log(JSON.parse(localStorage.getItem('myConfirm')));
+                                        
 
 
                                             setTimeout(() => { window.location.href = '../sign in/signin.html' }, 2000)

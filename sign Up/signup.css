@@ -1,0 +1,301 @@
+:root{
+  --bg-1: #0f1724; /* deep navy */
+  --bg-2: #062a35; /* teal dark */
+  --accent-1: #06b6d4; /* cyan */
+  --accent-2: #7c3aed; /* purple */
+  --glass: rgba(255,255,255,0.06);
+  --muted: rgba(255,255,255,0.75);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Poppins',sans-serif;
+  background: linear-gradient(160deg,var(--bg-1),var(--bg-2));
+  color: #eaf6f8;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  animation: bgShift 14s ease-in-out infinite;
+}
+
+/* Navbar */
+.navbar-transparent{background:transparent}
+.logo-circle{
+  width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
+  display:flex;align-items:center;justify-content:center;font-weight:700;color:#032;box-shadow:0 6px 18px rgba(7,20,33,0.6)
+}
+.logo-text small{opacity:.85}
+
+/* Hero */
+.hero{position:relative;padding-top:30px}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,6,23,0.24),rgba(2,6,23,0.6));pointer-events:none}
+.hero-wave{position:absolute;bottom:0;left:0;width:100%;height:80px}
+
+/* 3D card */
+.card-3d-wrap{width:320px;height:200px;perspective:1000px}
+.card-3d{width:100%;height:100%;transform-style:preserve-3d;transition:transform 700ms cubic-bezier(.2,.9,.2,1);animation:cardFloat 6s ease-in-out infinite}
+.card-3d:hover{transform:rotateY(12deg) rotateX(6deg) translateY(-6px)}
+.bank-card{position:absolute;inset:0;border-radius:16px;padding:20px;color:#fff;backface-visibility:hidden;box-shadow:0 12px 30px rgba(2,6,23,0.6)}
+.bank-card.front{background:linear-gradient(135deg,var(--accent-1),var(--accent-2));}
+.bank-card.back{transform:rotateY(180deg);background:linear-gradient(135deg,#0b1420,#093046)}
+.bank-card .chip{width:44px;height:30px;background:rgba(255,255,255,0.85);border-radius:6px;margin-bottom:18px}
+.card-number{font-weight:600;letter-spacing:2px;margin-bottom:18px}
+.card-row{display:flex;justify-content:space-between;align-items:center}
+.card-name{font-size:.9rem;opacity:.95}
+.card-logo{background:rgba(255,255,255,0.12);padding:.3rem .6rem;border-radius:8px;font-weight:700}
+.magstripe{height:36px;background:#000;margin-top:18px;border-radius:3px}
+.cvc{margin-top:24px;color:#ddd}
+
+/* Auth card */
+.auth-card{
+  width:100%;max-width:520px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border-radius:14px;padding:22px;
+  backdrop-filter: blur(6px);
+  box-shadow:0 10px 30px rgba(2,6,23,0.6);
+  animation: cardAppear 0.8s cubic-bezier(.2,.9,.2,1) forwards;
+}
+@keyframes cardAppear {
+  0% {transform:translateY(30px) scale(0.95);opacity:0}
+  60% {transform:translateY(-8px) scale(1.01)}
+  100% {transform:translateY(0) scale(1);opacity:1}
+}
+
+.auth-top{animation:fadeInUp 0.6s ease-out 0.2s both}
+.auth-top h3{
+  color:#f7fdff;
+  background:linear-gradient(90deg,#fff,var(--accent-1));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-size:200% 100%;
+  animation:titleShine 6s linear infinite;
+}
+@keyframes titleShine {
+  0% {background-position:200% center}
+  100% {background-position:-200% center}
+}
+
+.auth-body .form-control{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.08);
+  color:var(--muted);
+  transform-origin:left;
+  animation:formFields 0.4s ease-out backwards;
+}
+.auth-body .form-control:nth-child(1){animation-delay:0.4s}
+.auth-body .form-control:nth-child(2){animation-delay:0.5s}
+.auth-body .form-control:nth-child(3){animation-delay:0.6s}
+
+@keyframes formFields {
+  from {transform:scaleX(0.8);opacity:0}
+  to {transform:scaleX(1);opacity:1}
+}
+
+.auth-body .form-control:focus{
+  box-shadow:0 6px 22px rgba(7,20,33,0.5);
+  border-color:var(--accent-1);
+  outline:none;
+  animation:focusGlow 1.5s ease-out infinite;
+}
+@keyframes focusGlow {
+  0% {box-shadow:0 6px 22px rgba(7,20,33,0.5)}
+  50% {box-shadow:0 6px 22px rgba(124,58,237,0.3)}
+  100% {box-shadow:0 6px 22px rgba(7,20,33,0.5)}
+}
+
+.btn-pass-toggle{
+  position:absolute;
+  right:10px;top:34px;
+  background:transparent;
+  border:none;
+  color:var(--muted);
+  font-size:.85rem;
+  transition:all 0.3s ease;
+}
+.btn-pass-toggle:hover{
+  color:var(--accent-1);
+  transform:scale(1.1);
+}
+
+.form-label{
+  opacity:0;
+  animation:fadeInUp 0.4s ease-out forwards;
+}
+.form-label:nth-child(1){animation-delay:0.3s}
+.form-label:nth-child(2){animation-delay:0.4s}
+.form-label:nth-child(3){animation-delay:0.5s}
+
+@keyframes fadeInUp {
+  from {transform:translateY(10px);opacity:0}
+  to {transform:translateY(0);opacity:1}
+}
+
+/* Enhanced button animations for auth pages */
+.auth-body .btn{
+  position:relative;
+  overflow:hidden;
+  transition:all 0.3s ease;
+}
+.auth-body .btn::before{
+  content:'';
+  position:absolute;
+  top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.2),
+    transparent
+  );
+  transition:0.5s;
+}
+.auth-body .btn:hover::before{
+  left:100%;
+}
+.auth-body .btn:active{
+  transform:scale(0.97);
+}
+
+.auth-footer{
+  opacity:0;
+  animation:fadeInUp 0.6s ease-out 0.7s forwards;
+}
+
+.btn-primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));border:0;box-shadow:0 8px 22px rgba(124,58,237,0.14)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-light{background:#fff;color:#052;}
+.btn-success{background:#06d6a0;border:0}
+
+.feature-card{background:rgba(255,255,255,0.025);border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+
+/* small responsive tweaks */
+@media (max-width:991px){
+  .card-3d-wrap{display:none}
+  .hero{padding-bottom:60px}
+}
+
+/* Ensure auth area centers on small screens and stays usable on very narrow viewports */
+@media (max-width:420px){
+  /* center vertically and horizontally */
+  #auth{align-items:center;min-height:60vh;padding:1rem}
+  .auth-card{margin:1rem auto;width:100%;max-width:420px;padding:18px}
+}
+
+@media (max-width:320px){
+  /* extra small devices: tighten paddings and keep centered */
+  #auth{align-items:center;min-height:66vh;padding:0.6rem}
+  .auth-card{margin:0.5rem auto;width:100%;max-width:300px;padding:14px;border-radius:12px}
+  .logo-circle{width:40px;height:40px}
+}
+
+@media (max-width:250px){
+  /* very narrow screens: reduce chrome and force wrap */
+  #auth{align-items:center;min-height:70vh;padding:0.4rem}
+  .auth-card{margin:0.25rem auto;width:100%;max-width:240px;padding:12px;border-radius:10px}
+  .logo-circle{width:36px;height:36px}
+  .logo-text small{display:none}
+  nav .ms-auto{flex-basis:100%;justify-content:flex-end;margin-top:6px}
+}
+
+/* animations */
+@keyframes bgShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes cardFloat{
+  0%{transform:translateY(0) rotateX(0) rotateY(0)}
+  25%{transform:translateY(-15px) rotateX(4deg) rotateY(4deg)}
+  75%{transform:translateY(-8px) rotateX(-2deg) rotateY(-2deg)}
+  100%{transform:translateY(0) rotateX(0) rotateY(0)}
+}
+@keyframes shimmer {
+  0%{background-position:200% 0}
+  100%{background-position:-200% 0}
+}
+@keyframes slideUp {
+  from{transform:translateY(30px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+@keyframes pulseGlow {
+  0%{box-shadow:0 0 0 0 rgba(124,58,237,0.4)}
+  70%{box-shadow:0 0 0 10px rgba(124,58,237,0)}
+  100%{box-shadow:0 0 0 0 rgba(124,58,237,0)}
+}
+@keyframes fadeInScale {
+  from{transform:scale(0.94);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+/* Enhanced animations */
+.hero h1{animation:slideUp 1s ease-out}
+.hero p{animation:slideUp 1s ease-out 0.2s backwards}
+.hero .btn{animation:slideUp 1s ease-out 0.4s backwards}
+
+.card-3d{animation:cardFloat 8s ease-in-out infinite}
+.bank-card.front::after{
+  content:'';position:absolute;top:0;right:0;bottom:0;left:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.2) 50%,transparent 100%);
+  background-size:200% 100%;
+  animation:shimmer 8s linear infinite;
+}
+
+.feature-card{
+  animation:fadeInScale 0.6s ease-out;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-primary{
+  animation:pulseGlow 2s infinite;
+  transition:transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-primary:hover{
+  transform:translateY(-3px) scale(1.03);
+}
+
+.logo-circle{
+  animation:bgShift 14s infinite;
+  transition:transform 0.3s ease;
+}
+.navbar-brand:hover .logo-circle{
+  transform:rotate(10deg);
+}
+
+/* subtle focus and hover */
+input::placeholder{
+  color:rgba(255,255,255,0.65);
+  transition: color 0.2s ease;
+}
+input:focus::placeholder{
+  color:rgba(255,255,255,0.8);
+}
+a{color:var(--accent-1);transition:all 0.2s ease}
+a:hover{
+  text-decoration:none;
+  color:var(--accent-2);
+  text-shadow:0 0 8px rgba(124,58,237,0.3);
+}
+
+/* small utilities */
+.text-muted{color:rgba(255,255,255,0.75) !important}
+
+ .alert{
+  opacity: 0;
+  transform: translateY(20px);
+  animation: alert 0.7s ease-in-out forwards;
+}
+@keyframes alert  {
+  from{
+    opacity: 0;
+    transform: translateY(0px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0px);
+  }
+} 
+

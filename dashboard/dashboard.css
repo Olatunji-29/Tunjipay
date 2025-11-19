@@ -1,0 +1,74 @@
+/* Dashboard-specific styles and animations for TunjiPay dashboard */
+:root{
+  --dash-bg: linear-gradient(180deg, rgba(6,11,23,0.7), rgba(2,16,28,0.85));
+  --card-bg: rgba(255,255,255,0.03);
+  --muted: rgba(255,255,255,0.7);
+}
+
+html,body{height:100%}
+body.dashboard-root{background:var(--dash-bg);font-family:'Poppins',sans-serif}
+
+.dashboard-shell{min-height:100vh}
+
+/* Sidebar */
+.sidebar{width:260px;min-width:220px;max-width:300px}
+.sidebar .logo-circle{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:#032}
+.sidebar .avatar{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-weight:700}
+.sidebar .nav-link{color:var(--muted);padding:.6rem .5rem;border-radius:8px}
+.sidebar .nav-link.active, .sidebar .nav-link:hover{background:rgba(255,255,255,0.03);color:#fff}
+
+/* Small screens: make sidebar horizontal on top */
+@media (max-width:767px){
+  .dashboard-shell{flex-direction:column}
+  .sidebar{width:100%;display:flex;flex-direction:row;align-items:center;gap:1rem;padding:.75rem}
+  .sidebar .nav{display:flex;flex-direction:row;gap:.5rem;overflow:auto}
+  .sidebar .user-mini{display:none}
+  .sidebar .mt-auto{display:none}
+}
+
+/* Main content */
+.main{background:transparent}
+.dash-card{background:var(--card-bg);border:1px solid rgba(255,255,255,0.04);border-radius:12px;color:#fff;box-shadow:0 8px 30px rgba(2,6,23,0.6);overflow:hidden}
+.dash-card .card-body{padding:1.1rem}
+.icon-bubble{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center}
+
+/* Notifications dot */
+.notifications .notif-dot{position:absolute;top:6px;right:6px;width:10px;height:10px;background:#ff6b6b;border-radius:50%;box-shadow:0 0 6px rgba(255,107,107,0.3)}
+
+/* Bar chart */
+.bar-chart{display:flex;gap:6px;align-items:end;height:56px}
+.bar-chart .bar{width:10px;background:linear-gradient(180deg,var(--accent-1),var(--accent-2));border-radius:6px;transform:translateY(20px);opacity:0;animation:barGrow 800ms ease forwards}
+.bar-chart .bar:nth-child(1){animation-delay:80ms}
+.bar-chart .bar:nth-child(2){animation-delay:160ms}
+.bar-chart .bar:nth-child(3){animation-delay:240ms}
+.bar-chart .bar:nth-child(4){animation-delay:320ms}
+.bar-chart .bar:nth-child(5){animation-delay:400ms}
+.bar-chart .bar:nth-child(6){animation-delay:480ms}
+.bar-chart .bar:nth-child(7){animation-delay:560ms}
+.bar-chart .bar{height:var(--h)}
+
+@keyframes barGrow{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* Table */
+.table td{border-top:0;padding:.75rem}
+
+/* Buttons */
+.btn-outline-primary{border-color:rgba(6,182,212,0.15);color:var(--accent-1)}
+.btn-outline-primary:hover{background:rgba(6,182,212,0.06)}
+
+/* Footer small screen spacing */
+@media (max-width:420px){
+  .main{padding:1rem}
+}
+
+/* small polish */
+.dash-card:hover{transform:translateY(-6px);transition:transform 180ms ease}
+
+/* Accessibility: focus states */
+.nav-link:focus{outline:2px dashed rgba(124,58,237,0.3);outline-offset:2px}
+
+/* Ensure responsiveness for very narrow devices */
+@media (max-width:250px){
+  .sidebar{padding:.4rem}
+  .search-wrapper input{width:140px}
+}

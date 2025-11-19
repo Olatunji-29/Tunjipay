@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TunjiPay — Cards</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            background: linear-gradient(180deg, #071018 0%, #081523 100%);
+            color: #e6eef2
+        }
+
+        .acct-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px
+        }
+
+        .card-display {
+            background: linear-gradient(135deg, #06b6d4, #0ea5a6);
+            border-radius: 12px;
+            padding: 2rem;
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            min-height: 200px;
+        }
+
+        .card-number {
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 2px;
+            font-size: 1.25rem;
+        }
+        
+        /* Pop-up animation from the overview page */
+        .pop-up {
+            transform-origin: center center;
+            animation: popUp 520ms cubic-bezier(.2, .9, .3, 1) both
+        }
+
+        @keyframes popUp {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(.98)
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateY(0) scale(1.02)
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1)
+            }
+        }
+    </style>
+</head>
+
+<body class="dashboard-root">
+
+    <div class="d-flex justify-content-center py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="mb-0">Cards</h4>
+                        <small class="text-muted">Manage your virtual and physical cards</small>
+                    </div>
+                    <a href="../dashboard/dashboard.html" class="btn btn-sm btn-outline-secondary">Back to dashboard</a>
+                </div>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="card-display pop-up mb-4">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="fw-bold">TUNJIPAY VIRTUAL</div>
+                            <div class="small">VISA</div>
+                        </div>
+                        <div class="card-number fw-bold my-5 text-center">
+                            <span>****</span> <span>****</span> <span>****</span> <span>1234</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="small text-white-50">Cardholder</div>
+                                <div class="fw-bold">TUNJI A.</div>
+                            </div>
+                            <div class="text-end">
+                                <div class="small text-white-50">Expires</div>
+                                <div class="fw-bold">12/26</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card acct-card p-3 pop-up" style="animation-delay:150ms">
+                        <h5 class="mb-3">Card Controls</h5>
+                        <ul class="list-group list-group-flush small">
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center">
+                                Lock Card
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="lockCardSwitch">
+                                    <label class="form-check-label" for="lockCardSwitch"></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center">
+                                Enable Online Payments
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="onlineSwitch" checked>
+                                    <label class="form-check-label" for="onlineSwitch"></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center">
+                                Set Spending Limit
+                                <button class="btn btn-sm btn-outline-info">Set Limit</button>
+                            </li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center">
+                                <span class="text-danger">Freeze Card Permanently</span>
+                                <button class="btn btn-sm btn-danger">Freeze</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="d-grid mt-4 pop-up" style="animation-delay:300ms">
+                        <button class="btn btn-primary btn-lg">View Full Card Details</button>
+                        <button class="btn btn-outline-success mt-2">Order Physical Card</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

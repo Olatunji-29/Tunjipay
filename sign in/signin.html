@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TunjiPay — Sign in</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./signin.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-transparent px-4 py-3">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html">
+          <div class="logo-circle">TP</div>
+          <div class="d-flex flex-column logo-text">
+            <strong class="text-white">TunjiPay</strong>
+            <small class="text-muted">Fast · Secure · Friendly</small>
+          </div>
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon" style="filter:invert(1)"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <div class="ms-auto d-flex gap-2">
+            <a href="../sign in/signin.html" class="btn btn-outline-light btn-sm">Sign in</a>
+            <a href="../sign Up/signup.html" class="btn btn-light btn-sm">Sign up</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container my-5">
+      <section id="auth" class="d-flex justify-content-center">
+        <div id="auth-card" class="auth-card enter">
+          <div class="auth-top text-center">
+            <h3 id="auth-title" class="mb-1">Welcome back</h3>
+            <p class="text-muted small mb-0">Sign in to continue to TunjiPay</p>
+          </div>
+
+          <div class="auth-body">
+            <form id="signin-form">
+              <p id="showError" class="alert alert-danger text-danger text-center p-2 rounded-2" style="display: none;">Fill the empty input(s)</p>
+              <p id="showExist" class="alert alert-danger text-danger text-center p-2 rounded-2" style="display: none;">Account does not exist</p>
+              <p id="showInvalidCredential" class="alert alert-danger text-danger text-center p-2 rounded-2" style="display: none;">Invalid Credential</p>
+
+
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" id="eMail" class="form-control" placeholder="you@domain.com" required>
+              </div>
+              <div class="mb-3 position-relative">
+                <label class="form-label">Password</label>
+                <input id="password" type="password" class="form-control" placeholder="Enter password" required>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="remember">
+                  <label class="form-check-label small" for="remember">Remember me</label>
+                </div>
+                <a href="#" class="small">Forgot?</a>
+              </div>
+              <div class="d-grid">
+                <button onclick="signInButton()" id="signIn" type="button" class="btn btn-primary">Sign in</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="auth-footer text-center mt-3 small text-muted">
+            New to TunjiPay? <a href="../sign Up/signup.html">Create an account</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-4 text-center small text-muted">
+      © 2025 TunjiPay. Built with care.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="signin.js"></script>
+  </body>
+</html>

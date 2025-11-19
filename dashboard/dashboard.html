@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TunjiPay — Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="dashboard.css">
+  </head>
+  <body class="dashboard-root">
+
+    <div class="d-flex dashboard-shell">
+      <!-- SIDEBAR -->
+      <aside class="sidebar bg-dark text-white d-flex flex-column p-3">
+        <a href="../index.html" class="d-flex align-items-center mb-4 text-decoration-none text-white">
+          <div class="logo-circle me-2">TP</div>
+          <div>
+            <div class="h6 mb-0">TunjiPay</div>
+            <small class="text-muted">Dashboard</small>
+          </div>
+        </a>
+
+        <div class="user-mini d-flex align-items-center gap-2 mb-4">
+          <div id="firstLetter" class="avatar">T</div>
+          <div>
+            <div id="personalName" class="fw-bold">Tunji A.</div>
+            <div class="small text-muted">Personal · Pro</div>
+          </div>
+        </div>
+
+        <nav class="nav flex-column mb-4">
+          <a class="nav-link active" href="../overview/overview.html">Overview</a>
+          <a class="nav-link" href="../Account/account.html">Accounts</a>
+          <a class="nav-link" href="../payment/payment.html">Payments</a>
+          <a class="nav-link" href="../card/card.html">Cards</a>
+          <a class="nav-link" href="../settings/setting.html">Settings</a>
+        </nav>
+
+        <div class="mt-auto">
+          <button class="btn btn-outline-light w-100 mb-2">New Payment</button>
+          <button class="btn btn-light w-100">Top up</button>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main flex-fill p-4">
+        <header class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <srrong class="mb-0">Good afternoon, Dear <b id="realUserName">Tunji</b> 👋</strong>
+            <small class="text-muted">Here's what's happening with your money today</small>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <div class="search-wrapper d-none d-md-block">
+              <input class="form-control form-control-sm" placeholder="Search transactions, payees..." aria-label="Search">
+            </div>
+            <div class="notifications position-relative">
+              <button class="btn btn-sm btn-outline-light">🔔</button>
+              <span class="notif-dot"></span>
+            </div>
+            <a href="../signin.html" class="btn btn-sm btn-outline-light">Sign out</a>
+          </div>
+        </header>
+
+        <section id="overview">
+          <div class="row g-3">
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card dash-card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <small class="text-muted">Total balance</small>
+                      <div class="h5 mt-1" id="totalBalance">₦9,838,092.50</div>
+                    </div>
+                    <div class="icon-bubble">💳</div>
+                  </div>
+                  <div class="mt-3">
+                    <small class="text-muted" >Available</small>
+                    <div class="fw-bold" id="availableBalance" >₦8,082,095.00</div>
+                  </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 small text-muted">Updated 2 hours ago</div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card dash-card h-100">
+                <div class="card-body">
+                  <small class="text-muted">Monthly spending</small>
+                  <div class="h5 mt-1">₦979,600</div>
+                  <div class="mt-3 bar-chart" aria-hidden="true">
+                    <div class="bar" style="--h:60%"></div>
+                    <div class="bar" style="--h:40%"></div>
+                    <div class="bar" style="--h:70%"></div>
+                    <div class="bar" style="--h:30%"></div>
+                    <div class="bar" style="--h:80%"></div>
+                    <div class="bar" style="--h:50%"></div>
+                    <div class="bar" style="--h:65%"></div>
+                  </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 small text-muted">Based on last 7 days</div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-12 col-lg-4">
+              <div class="card dash-card h-100">
+                <div class="card-body">
+                  <small class="text-muted">Savings goal</small>
+                  <div class="h5 mt-1">₦3,160,000 / ₦7,900,000</div>
+                  <div class="progress mt-3" style="height:10px">
+                    <div class="progress-bar bg-success" role="progressbar" style="width:40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 small text-muted">Keep going — you're 40% there</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-3 mt-2">
+            <div class="col-12 col-lg-8">
+              <div class="card dash-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0">Recent transactions</h5>
+                    <a href="#" class="small">View all</a>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-borderless align-middle mb-0">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div class="fw-bold">Starbucks</div>
+                            <div class="small text-muted">Today · Coffee</div>
+                          </td>
+                          <td class="text-end text-success">- ₦3,752.50</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="fw-bold">Salary</div>
+                            <div class="small text-muted">Yesterday · Employer</div>
+                          </td>
+                          <td class="text-end text-primary">+ ₦1,975,000.00</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="fw-bold">Spotify</div>
+                            <div class="small text-muted">Nov 1 · Subscription</div>
+                          </td>
+                          <td class="text-end text-success">- ₦7,892.10</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <div class="card dash-card">
+                <div class="card-body text-center">
+                  <h6 class="mb-2">Quick actions</h6>
+                  <div class="d-grid gap-2">
+                    <a href="../transfer/transfer.html" class="text-decoration-none "><button class="btn btn-outline-primary w-100">Transfer</button></a>
+                     <a href="../coming soo/coming.html" class="text-decoration-none "><button class="btn btn-outline-success w-100">Buy Data</button></a>
+                     <a href="../coming soo/coming.html" class="text-decoration-none"><button class="btn btn-outline-secondary w-100">Others</button> </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card dash-card mt-3">
+                <div class="card-body text-center">
+                  <small class="text-muted">Card ending</small>
+                  <div class="h6 mt-1">Visa •••• 8421</div>
+                  <div class="mt-3">
+                    <button class="btn btn-sm btn-light">Manage card</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="mt-4 small text-muted">Need help? Contact support at help@tunjipay.example</footer>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

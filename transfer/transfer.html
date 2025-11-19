@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TunjiPay — Transfer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css"> <style>
+        body {
+            font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            background: linear-gradient(180deg, #071018 0%, #081523 100%);
+            color: #e6eef2
+        }
+
+        .acct-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px
+        }
+
+        /* Pop-up animation from the overview page */
+        .pop-up {
+            transform-origin: center center;
+            animation: popUp 520ms cubic-bezier(.2, .9, .3, 1) both
+        }
+
+        @keyframes popUp {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(.98)
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateY(0) scale(1.02)
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1)
+            }
+        }
+
+        .form-control, .form-select {
+            background-color: rgba(255, 255, 255, 0.08); /* Darker input background */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e6eef2;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: rgba(255, 255, 255, 0.12);
+            border-color: #0d6efd; /* Highlight focus with a primary color */
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            color: #e6eef2;
+        }
+        
+        /* Ensures the dropdown options are visible on the dark background */
+        .form-select option {
+            background-color: #081523; 
+            color: #e6eef2;
+        }
+
+        .recent-receiver-item {
+            cursor: pointer;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .recent-receiver-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+
+<body class="dashboard-root">
+
+    <div class="d-flex justify-content-center py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="mb-0">New Transfer</h4>
+                        <small class="text-muted">Send money to any bank account</small>
+                    </div>
+                    <a href="../dashboard/dashboard.html" class="btn btn-sm btn-outline-secondary">Back to dashboard</a>
+                </div>
+            </div>
+
+            <div class="row justify-content-center pop-up">
+                <div class="col-12 col-md-10 col-lg-8">
+
+                    <div class="card acct-card p-4 mb-4">
+                      <p id="showError" style="display: none;" class="alert alert-danger text-center p-2 text-danger">Fill all the required inputs</p>
+                      <p id="showAccountError" style="display: none;" class="alert alert-danger text-center p-2 text-danger">Invalid Account Number</p>
+                      <p id="showAmountError" style="display: none;" class="alert alert-danger text-center p-2 text-danger">You can't transfer less than ₦50</p>
+
+
+                        <h5 class="fw-bold mb-3">Recipient Details</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="bankSelect" class="form-label small text-muted mb-1">Select Bank</label>
+                                <select class="form-select" id="bankSelect" required>
+                                    <!-- <option selected disabled value="">Choose Bank...</option> -->
+                                    <option selected value="Tunji-Pay">Tunji-Pay Bank</option>
+                                    <option  disabled value="">The other banks will be available soon</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="accountNumber" id="accNumber" class="form-label small text-muted mb-1">Account Number</label>
+                                <input type="text" class="form-control" id="accountNumber" placeholder="Enter 10-digit account number" maxlength="10" inputmode="numeric" required onkeyup="autoFindReceiver()">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <p style="border: 1px solid #27313a; background-color: #212c38;" class= "p-2 rounded-2 text-center text-warning small mb-0" id="accountName">Account Name: ...</p>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="amount" class="form-label small text-muted mb-1">Amount (₦)</label>
+                                <input type="number"  class="form-control" id="amount" placeholder="e.g., 5000.00" step="0.01" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="narration" class="form-label small text-muted mb-1">Narration (Optional)</label>
+                                <input type="text"  class="form-control" id="narration" placeholder="Reason for transfer">
+                            </div>
+
+                            <button type="button" id="trans" onclick="transfer()" class="btn btn-primary w-100">Proceed to Transfer</button>
+                        </form>
+                    </div>
+
+                    <div class="card acct-card p-4" style="animation-delay:100ms">
+                        <h5 class="fw-bold mb-3">Recent Recipients</h5>
+                        <div class="d-grid gap-2 small">
+                            <div class="recent-receiver-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold">Ngozi Chukwu</div>
+                                    <small class="text-muted">Access Bank - 0012345678</small>
+                                </div>
+                                <span class="badge bg-secondary">Tap to select</span>
+                            </div>
+                            <div class="recent-receiver-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold">Tolu Adebayo</div>
+                                    <small class="text-muted">GTB - 0198765432</small>
+                                </div>
+                                <span class="badge bg-secondary">Tap to select</span>
+                            </div>
+                            <div class="recent-receiver-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold">Fidelity Account</div>
+                                    <small class="text-muted">Fidelity Bank - 6543210987</small>
+                                </div>
+                                <span class="badge bg-secondary">Tap to select</span>
+                            </div>
+                            </div>
+                        <p class="text-muted small mt-3 mb-0">Tapping a recent recipient will auto-fill the bank and account number.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    <script src="transfer.js"></script>
+</html>

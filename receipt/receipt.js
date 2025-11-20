@@ -36,7 +36,7 @@ rBank.textContent = yourInfo.bank
 console.log(yourInfo.bank);
 
 rAmount.textContent = `₦${yourInfo.amount}.00`
- rCharges.textContent = yourRemain.charge
+ rCharges.textContent = `₦${yourRemain.charge}.00`
  
- rTotal.textContent = `₦${yourInfo.totalAmount}.00`
+ rTotal.textContent = `₦${yourRemain.totalAmount}.00`
 

@@ -129,13 +129,26 @@ const toComplete = () => {
                 sender.balance = currentBalance - totalDeduction;
 
                 if (receiver) {
+
                     receiver.balance = (Number(receiver.balance) || 0) + Number(yourInfo.amount);
                 }
+                const remain = {
+                    charge:charge,
+                    totalAmount: totalDeduction
+                }
 
+                localStorage.setItem('pendingTransfer', JSON.stringify(yourInfo));
+                localStorage.setItem('remaining', JSON.stringify(remain));
                 localStorage.setItem('myConfirm', JSON.stringify(customers));
+                complete.innerHTML = `
+                <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+                <span class="visually-hidden" role="status">Loading...</span>
+                `
+                setTimeout(() => {
+                    window.location.href = '../receipt/receipt.html';
 
-                // Redirect to receipt
-                window.location.href = '../receipt/receipt.html';
+                }, 1000)
+
             }
 
         }

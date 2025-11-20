@@ -94,9 +94,23 @@ function autoFindReceiver() {
         const receiver = storedUsers.find(user => user.pho === "0" + accountNumber.value.trim())
 
         if (receiver) {
-            accountName.innerHTML = receiver.accName
+            accountName.innerHTML = `
+                <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+                <span class="visually-hidden" role="status">Loading...</span>
+                `
+            setTimeout(() => {
+                accountName.innerHTML = receiver.accName
+            }, 1000)
         } else {
-            accountName.innerHTML = `Account is not exist`
+
+            accountName.innerHTML = `
+                <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+                <span class="visually-hidden" role="status">Loading...</span>
+                `
+            setTimeout(() => {
+                accountName.innerHTML = `Account is not exist`
+            }, 1000)
+
 
         }
     }
@@ -107,7 +121,7 @@ function autoFindReceiver() {
 const transfer = () => {
     const accountNumber = document.getElementById('accountNumber')
     const acctNum = accountNumber.value.trim();
-    
+
 
     const sendAmount = Number(amount.value.trim()); // convert to number
     const receiver = storedUsers.find(user => user.pho === "0" + acctNum);
@@ -132,20 +146,23 @@ const transfer = () => {
         showError.style.display = 'none'
         showAccountError.style.display = 'none'
         showAmountError.style.display = 'none'
-const narration = document.getElementById('narration'); 
+        const narration = document.getElementById('narration');
         const transferData = {
             bank: bankSelect.value,
             receiverName: receiver ? receiver.accName : "Unknown",
             receiverNumber: acctNum,
             amount: sendAmount,
-            nar: narration? narration.value.trim() : "Unknown narration"
+            nar: narration ? narration.value.trim() : "Unknown narration"
         };
-    
+
         localStorage.setItem('pendingTransfer', JSON.stringify(transferData));
-
-
-
-        window.location.href = '../confirmation transfer/confirmation.html '
+         trans.innerHTML = `
+                <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+                <span class="visually-hidden" role="status">Loading...</span>
+                `
+                setTimeout(()=>{
+                    window.location.href = '../confirmation transfer/confirmation.html '
+                }, 1000)
     }
 
 

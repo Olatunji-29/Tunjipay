@@ -49,7 +49,8 @@ const loggedInName = JSON.parse(localStorage.getItem('currentLoggedInUser')) || 
 const storedUsers = JSON.parse(localStorage.getItem('myConfirm')) || [];
 const currentUser = storedUsers.find(user => user.accName === loggedInName);
 
-const userBalance = currentUser ? currentUser.balance : 0;
+const userBalance = currentUser ? Number(currentUser.balance).toLocaleString() : 0;
+
 
 
 realUserName.textContent = loggedInName;

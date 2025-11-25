@@ -1,11 +1,192 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>Welcome to History</h3>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TunjiPay — Payments</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="history.css">
+  </head>
+  <body class="dashboard-root">
+
+    <div class="d-flex dashboard-shell flex-column flex-md-row">
+      <!-- SIDEBAR -->
+      <aside class="sidebar text-white d-flex flex-column p-3">
+        <a href="dashboard.html" class="d-flex align-items-center mb-4 text-decoration-none text-white">
+          <div class="logo-circle me-2">TP</div>
+          <div>
+            <div class="h6 mb-0">TunjiPay</div>
+            <small class="text-muted">Dashboard</small>
+          </div>
+        </a>
+
+        <div class="user-mini d-flex align-items-center gap-2 mb-4">
+          <div id="firstLetter" class="avatar">T</div>
+          <div>
+            <div id="personalName" class="fw-bold">Tunji A.</div>
+            <div class="small text-muted">Personal · Pro</div>
+          </div>
+        </div>
+
+        <!-- NOTE: Active class changed to Payments -->
+        <nav class="nav flex-column flex-md-column mb-4">
+          <a class="nav-link" href="dashboard.html">Overview</a>
+          <a class="nav-link" href="accounts.html">Accounts</a>
+          <a class="nav-link active" href="payments.html">Payments</a>
+          <a class="nav-link" href="cards.html">Cards</a>
+          <a class="nav-link" href="settings.html">Settings</a>
+        </nav>
+
+        <div class="mt-auto d-none d-md-block">
+          <button class="btn btn-outline-light w-100 mb-2">New Payment</button>
+          <button class="btn btn-light w-100">Top up</button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT: Transaction History -->
+      <main class="main flex-fill p-4">
+        <header class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h4 class="mb-0 fw-bold">Transaction History</h4>
+            <small class="text-muted">Detailed list of all your financial activities</small>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <div class="search-wrapper d-none d-md-block">
+              <input class="form-control form-control-sm" placeholder="Search transactions..." aria-label="Search">
+            </div>
+            <button class="btn btn-sm btn-outline-light">🔔</button>
+          </div>
+        </header>
+
+        <section id="transaction-filters" class="mb-4">
+            <div class="row g-3">
+                <div class="col-6 col-md-4">
+                    <label for="filterStatus" class="form-label small text-muted">Status</label>
+                    <select id="filterStatus" class="form-select form-select-sm">
+                        <option selected>All Statuses</option>
+                        <option>Completed</option>
+                        <option>Pending</option>
+                        <option>Failed</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-4">
+                    <label for="filterType" class="form-label small text-muted">Type</label>
+                    <select id="filterType" class="form-select form-select-sm">
+                        <option selected>All Types</option>
+                        <option>Income</option>
+                        <option>Expense</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-4">
+                    <label for="filterDate" class="form-label small text-muted">Timeframe</label>
+                    <select id="filterDate" class="form-select form-select-sm">
+                        <option selected>Last 30 Days</option>
+                        <option>Last 7 Days</option>
+                        <option>This Month</option>
+                        <option>Last Year</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <p id="showTable" class="text-center text-warning p-2" ></p>
+        <!-- <section id="transaction-list">
+            <div class="card dash-card p-0">
+                <div class="table-responsive">
+                    <table class="table table-borderless align-middle mb-0">
+                        <thead>
+                            <tr class="small text-muted text-uppercase">
+                                <th>Transaction</th>
+                                <th class="d-none d-sm-table-cell">Date</th>
+                                <th class="d-none d-md-table-cell">Status</th>
+                                <th class="text-end">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    
+                            <tr class="transaction-row">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="transaction-icon icon-expense me-3">🛍️</div>
+                                        <div>
+                                            <div class="fw-bold">Amazon Prime Video</div>
+                                            <div class="small text-muted">Subscription · Card 8421</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="d-none d-sm-table-cell">Dec 15, 2023</td>
+                                <td class="d-none d-md-table-cell"><span class="badge bg-success">Completed</span></td>
+                                <td class="text-end text-danger fw-bold">- ₦18,500.00</td>
+                            </tr>
+            
+                            <tr class="transaction-row">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="transaction-icon icon-income me-3">💵</div>
+                                        <div>
+                                            <div class="fw-bold">Salary Deposit (Freelance)</div>
+                                            <div class="small text-muted">Income · Bank Account</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="d-none d-sm-table-cell">Dec 10, 2023</td>
+                                <td class="d-none d-md-table-cell"><span class="badge bg-success">Completed</span></td>
+                                <td class="text-end text-success fw-bold">+ ₦1,250,000.00</td>
+                            </tr>
+        
+                            <tr class="transaction-row">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="transaction-icon icon-transfer me-3">🔄</div>
+                                        <div>
+                                            <div class="fw-bold">Transfer to Jane Doe</div>
+                                            <div class="small text-muted">Internal Transfer · Savings</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="d-none d-sm-table-cell">Dec 8, 2023</td>
+                                <td class="d-none d-md-table-cell"><span class="badge bg-warning text-dark">Pending</span></td>
+                                <td class="text-end text-light fw-bold">- ₦50,000.00</td>
+                            </tr>
+
+                            <tr class="transaction-row">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="transaction-icon icon-expense me-3">🍔</div>
+                                        <div>
+                                            <div class="fw-bold">Local Diner Purchase</div>
+                                            <div class="small text-muted">Food · Card 8421</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="d-none d-sm-table-cell">Dec 7, 2023</td>
+                                <td class="d-none d-md-table-cell"><span class="badge bg-danger">Failed</span></td>
+                                <td class="text-end text-danger fw-bold">- ₦4,350.00</td>
+                            </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+             -->
+            <nav class="mt-4" aria-label="Transaction pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item active"><a class="page-link" href="#" style="background-color: var(--tp-primary); border-color: var(--tp-primary);">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </section>
+
+        <footer class="mt-4 small text-muted">Need help? Contact support at help@tunjipay.example</footer>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+   
+  </body>
+  <script src="history.js"></script>
 </html>

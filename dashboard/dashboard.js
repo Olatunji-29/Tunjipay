@@ -102,19 +102,19 @@ const recentTransactions = [...overallTransaction].reverse();
 const limitedTransactions = recentTransactions.slice(0, 5);
 
 
-showTransaction.innerHTML = '';
-
 
 limitedTransactions.forEach(transaction => {
 
-    
+
     const senderName = transaction.senderName;
     const recipientName = transaction.recipientName;
 
     let toAdd = '';
 
-   
+
     if (transaction.senderName == loggedInName) {
+        showTransaction.innerHTML = '';
+
         toAdd = `
         <div class="d-flex align-items-center justify-content-between border-bottom py-2">
             <div>
@@ -127,7 +127,7 @@ limitedTransactions.forEach(transaction => {
             </div>
         </div>`;
 
-    
+
     } else if (transaction.recipientName == loggedInName) {
         toAdd = `
         <div class="d-flex align-items-center justify-content-between border-bottom py-2">
@@ -148,7 +148,7 @@ limitedTransactions.forEach(transaction => {
 if (overallTransaction.length > 5) {
     showTransaction.innerHTML += `
         <div class="text-center pt-3">
-            <a href="transaction-history.html" class="btn btn-sm btn-outline-primary">See All Transactions (${overallTransaction.length}) &rarr;</a>
+            <a href="../history/history.html" class="btn btn-sm btn-outline-primary">See All Transactions (${overallTransaction.length}) &rarr;</a>
         </div>
     `;
 }

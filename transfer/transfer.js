@@ -156,15 +156,65 @@ const transfer = () => {
         };
 
         localStorage.setItem('pendingTransfer', JSON.stringify(transferData));
-         trans.innerHTML = `
+        trans.innerHTML = `
                 <span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
                 <span class="visually-hidden" role="status">Loading...</span>
                 `
-                setTimeout(()=>{
-                    window.location.href = '../confirmation transfer/confirmation.html '
-                }, 1000)
+        setTimeout(() => {
+            window.location.href = '../confirmation transfer/confirmation.html '
+        }, 1000)
     }
 
 
 
 }
+
+
+
+    
+    const showTable = document.getElementById('showTable');
+    const loggedInName = JSON.parse(localStorage.getItem('currentLoggedInUser')) || "Guest";
+    const currentUser = storedUsers.find(user => user.accName === loggedInName);
+    const allTransaction = JSON.parse(localStorage.getItem('transaction')) || [];
+    console.log(allTransaction);
+    console.log('Logged in name:', loggedInName);
+    console.log('Transactions:', allTransaction);
+    console.log('hiii');
+    
+
+    
+
+    if (allTransaction.length === 0) {
+        showTable.innerHTML = `No Recent Transaction History`;
+    } else {
+
+        showTable.innerHTML = '';
+
+        const recentTransactions = [...allTransaction].reverse();
+
+        recentTransactions.forEach((transaction) => {
+            const senderName = transaction.senderName;
+            const recipientName = transaction.recipientName;
+
+            let rowHTML = '';
+
+            if (senderName === loggedInName) {
+                rowHTML = `
+                    <div class="d-flex align-items-center justify-content-between border-bottom p-2">
+                        <button class="text-start" style= "border: none; background-color: transparent">
+                            <p class="mb-0 text-white fw-bold text-dark" >${recipientName}</p>
+                            <small style="color: #f3f4f7" >${transaction.recipientAcc} •  ${transaction.recipientBank}</small><br>
+                            <small style="color: #f3f4f7" >Last Transfer on: ${transaction.date}</small>
+
+                            
+                        </button>
+                    </div>
+                `;
+            }
+
+            showTable.innerHTML += rowHTML;
+        });
+    }
+
+
+

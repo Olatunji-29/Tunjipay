@@ -37,13 +37,14 @@ firstLetter.innerHTML = myFirst
    totalBalance.innerHTML =  `₦ ${(Number(newBal ?? balance)).toFixed(2)}`
 
    availableBalance.innerHTML = `₦ ${balance}`
-    totalBalance.innerHTML =  `₦ ${balance}` */
+    totalBalance.innerHTML =  `₦ ${balance}` */
 
 
 
 
 
-
+// let allTransaction = JSON.parse(localStorage.getItem('transaction'))
+const overallTransaction = JSON.parse(localStorage.getItem('transaction')) || [];
 const loggedInName = JSON.parse(localStorage.getItem('currentLoggedInUser')) || "Guest";
 
 const storedUsers = JSON.parse(localStorage.getItem('myConfirm')) || [];
@@ -57,8 +58,22 @@ realUserName.textContent = loggedInName;
 personalName.textContent = loggedInName;
 let myFirst = loggedInName.slice(0, 1).toUpperCase()
 firstLetter.innerHTML = myFirst
-availableBalance.innerHTML = `₦${userBalance} `
-totalBalance.innerHTML = `₦ ${userBalance}`
+
+
+showHide.addEventListener('click', () => {
+    if (availableBalance.type == 'password' && totalBalance.type == 'password') {
+        availableBalance.type = 'text'
+        totalBalance.type = 'text'
+        showHide.textContent = 'Hide'
+    } else {
+        availableBalance.type = 'password'
+        totalBalance.type = 'password'
+        showHide.textContent = 'Show'
+    }
+
+})
+availableBalance.value = `₦${userBalance} `
+totalBalance.value = `₦ ${userBalance}`
 
 
 console.log("Current logged in user:", loggedInName);
@@ -66,4 +81,74 @@ console.log("Current logged in user:", loggedInName);
 const logOut = () => {
     localStorage.removeItem('currentLoggedInUser')
     window.location.href = '../sign in/signin.html'
+}
+
+
+
+
+const showTransaction = document.getElementById('showTransaction');
+
+if (overallTransaction.length === 0 || !showTransaction) {
+    if (showTransaction) {
+        showTransaction.innerHTML = '<p class="text-center text-muted mt-3">No recent transactions.</p>';
+    }
+
+}
+
+
+const recentTransactions = [...overallTransaction].reverse();
+
+
+const limitedTransactions = recentTransactions.slice(0, 5);
+
+
+showTransaction.innerHTML = '';
+
+
+limitedTransactions.forEach(transaction => {
+
+    
+    const senderName = transaction.senderName;
+    const recipientName = transaction.recipientName;
+
+    let toAdd = '';
+
+   
+    if (transaction.senderName == loggedInName) {
+        toAdd = `
+        <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+            <div>
+                <p class="mb-0 fw-bold text-dark">Sent to: ${recipientName}</p>
+                <small class="text-muted">${transaction.recipientBank} - ${transaction.time} - ${transaction.date}</small>
+            </div>
+            <div class="text-danger text-end">
+                <p class="mb-0 fw-bold">- ₦${transaction.tAmount}.00</p>
+                <small class="text-muted">Transfer Out</small>
+            </div>
+        </div>`;
+
+    
+    } else if (transaction.recipientName == loggedInName) {
+        toAdd = `
+        <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+            <div>
+                <p class="mb-0 fw-bold text-dark">Received from: ${senderName}</p>
+                <small class="text-muted"> ${transaction.senderBank} - ${transaction.time} - ${transaction.date}</small>
+            </div>
+            <div class="text-success text-end">
+                <p class="mb-0 fw-bold">+ ₦${transaction.amount}.00</p>
+                <small class="text-muted">Transfer In</small>
+            </div>
+        </div>`;
+    }
+
+    showTransaction.innerHTML += toAdd;
+});
+
+if (overallTransaction.length > 5) {
+    showTransaction.innerHTML += `
+        <div class="text-center pt-3">
+            <a href="transaction-history.html" class="btn btn-sm btn-outline-primary">See All Transactions (${overallTransaction.length}) &rarr;</a>
+        </div>
+    `;
 }

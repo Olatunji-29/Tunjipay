@@ -48,7 +48,7 @@
       <main class="main flex-fill p-4">
         <header class="d-flex justify-content-between align-items-center mb-4">
           <div>
-            <srrong class="mb-0">Good afternoon, Dear <b id="realUserName">Tunji</b> 👋</strong>
+            <strong class="mb-0">Good afternoon, Dear <b id="realUserName">Tunji</b> 👋</strong>
             <small class="text-muted">Here's what's happening with your money today</small>
           </div>
           <div class="d-flex align-items-center gap-3">
@@ -71,13 +71,19 @@
                   <div class="d-flex justify-content-between align-items-start">
                     <div>
                       <small class="text-muted">Total balance</small>
-                      <div class="h5 mt-1" id="totalBalance">₦9,838,092.50</div>
+                      
+                      <input type="text" class="fw-bold text-white " readonly id="totalBalance" style="background-color:transparent; border: none;">
+
                     </div>
                     <div class="icon-bubble">💳</div>
                   </div>
                   <div class="mt-3">
                     <small class="text-muted" >Available</small>
-                    <div class="fw-bold" id="availableBalance" >₦8,082,095.00</div>
+                    <div class="fw-bold"  >
+                      <input type="text" class="fw-bold text-white " readonly id="availableBalance" style="background-color:transparent; border: none;">
+                      <button class="border-0" id="showHide" style="background-color: transparent;">Show</button>
+                    
+                    </div>
                   </div>
                 </div>
                 <div class="card-footer bg-transparent border-0 small text-muted">Updated 2 hours ago</div>
@@ -125,7 +131,9 @@
                     <h5 class="mb-0">Recent transactions</h5>
                     <a href="#" class="small">View all</a>
                   </div>
-                  <div class="table-responsive">
+
+                  <p id="showTransaction"></p>
+                  <!-- <div class="table-responsive">
                     <table class="table table-borderless align-middle mb-0">
                       <tbody>
                         <tr>
@@ -135,13 +143,7 @@
                           </td>
                           <td class="text-end text-success">- ₦3,752.50</td>
                         </tr>
-                        <tr>
-                          <td>
-                            <div class="fw-bold">Salary</div>
-                            <div class="small text-muted">Yesterday · Employer</div>
-                          </td>
-                          <td class="text-end text-primary">+ ₦1,975,000.00</td>
-                        </tr>
+                       
                         <tr>
                           <td>
                             <div class="fw-bold">Spotify</div>
@@ -151,7 +153,7 @@
                         </tr>
                       </tbody>
                     </table>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>

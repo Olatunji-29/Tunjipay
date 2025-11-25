@@ -18,6 +18,7 @@
 // rTotal.textContent = `₦${yourAmount}.00`
 
 
+let overallTransaction = JSON.parse(localStorage.getItem('transaction')) || []
 
 let yourInfo = JSON.parse(localStorage.getItem('pendingTransfer'))
 let yourRemain = JSON.parse(localStorage.getItem('remaining'))
@@ -40,3 +41,25 @@ rAmount.textContent = `₦${yourInfo.amount}.00`
  
  rTotal.textContent = `₦${yourRemain.totalAmount}.00`
 
+const sTransactionOBJ = {
+    amount: yourInfo.amount,
+    tCharges: yourRemain.charge,
+    tAmount: yourRemain.totalAmount,
+    senderName: sender.accName,       // NEW
+    senderBank: sender.bank,
+    senderAcc: sender.accNum,
+    recipientName: yourInfo.receiverName, // NEW
+    recipientBank: yourInfo.bank,
+    recipientAcc: yourInfo.receiverNumber,
+    time: new Date().toLocaleTimeString(),
+    date: new Date().toLocaleDateString(),
+    transId: Math.floor(Math.random() * (100000000000000 - 100000000 + 1)) + 100000000,
+    payType: 'Money Transfer'
+};
+
+
+overallTransaction.push(sTransactionOBJ)
+localStorage.setItem('transaction', JSON.stringify(overallTransaction))
+overallTransaction.forEach(transaction => {
+    console.log(transaction.tAmount);
+});

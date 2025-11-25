@@ -148,6 +148,7 @@ const toComplete = () => {
                     window.location.href = '../receipt/receipt.html';
 
                 }, 1000)
+                
 
             }
 

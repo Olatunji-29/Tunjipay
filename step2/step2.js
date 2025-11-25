@@ -22,7 +22,8 @@ const signUpButton = () => {
             pass: userPassword.value.trim(),
             c_pass: userConfirmPassword.value.trim(),
             accName: userAccName,
-            balance: 5000
+            balance: 5000,
+            bank: 'Tunji-Pay'
         }
 
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/

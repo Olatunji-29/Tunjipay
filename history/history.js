@@ -2,62 +2,66 @@ function loadHistory() {
     const loggedInName = JSON.parse(localStorage.getItem('currentLoggedInUser')) || "Guest";
     const storedUsers = JSON.parse(localStorage.getItem('myConfirm')) || [];
     const currentUser = storedUsers.find(user => user.accName === loggedInName);
-    const allTransaction = JSON.parse(localStorage.getItem('transaction')) || [];
+const overallTransaction = JSON.parse(localStorage.getItem('transaction')) || [];
+
 
     if (!currentUser) return;
 
     
-const filterType = document.getElementById('filterType')
+let userTransactions = overallTransaction.filter(t =>
+    t.senderName === loggedInName || t.recipientName === loggedInName
+);
 
 
+if (userTransactions.length === 0) {
+    showTable.innerHTML = `
+        <p class="text-center text-muted mt-3">No recent transactions.</p>
+    `;
+}
 
-    if (allTransaction.length === 0) {
-        showTable.innerHTML = `No Recent Transaction History`;
-    } else {
 
-        showTable.innerHTML = '';
+let recentTransactions = [...userTransactions].reverse().slice(0, 5);
 
-        const recentTransactions = [...allTransaction].reverse();
+showTable.innerHTML = "";
 
-        recentTransactions.forEach((transaction) => {
-            const senderName = transaction.senderName;
-            const recipientName = transaction.recipientName;
 
-            let rowHTML = '';
+recentTransactions.forEach(transaction => {
 
-            if (senderName === loggedInName) {
-                rowHTML = `
-                    <div class="d-flex align-items-center justify-content-between border-bottom p-2">
-                        <div>
-                            <p class="mb-0 text-white fw-bold text-dark" >Sent to: ${recipientName}</p>
-                            <small style="color: #f3f4f7" >${transaction.recipientBank} • ${transaction.time} • ${transaction.date}</small>
-                        </div>
-                        <div class="text-danger text-end">
-                            <p class="mb-0 fw-bold">- ₦${transaction.tAmount}.00</p>
-                            <small class="text-muted">Transfer Out</small>
-                        </div>
-                    </div>
-                `;
-            }
+    let toAdd = "";
 
-            else if (recipientName === loggedInName) {
-                rowHTML = `
-                    <div class="d-flex align-items-center justify-content-between border-bottom py-2">
-                        <div>
-                            <p class="mb-0 fw-bold text-dark">Received from: ${senderName}</p>
-                            <small class="text-muted">${transaction.senderBank} • ${transaction.time} • ${transaction.date}</small>
-                        </div>
-                        <div class="text-success text-end">
-                            <p class="mb-0 fw-bold">+ ₦${transaction.amount}.00</p>
-                            <small class="text-muted">Transfer In</small>
-                        </div>
-                    </div>
-                `;
-            }
-
-            showTable.innerHTML += rowHTML;
-        });
+    if (transaction.senderName === loggedInName) {
+        toAdd = `
+        <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+            <div>
+                <p class="mb-0 fw-bold text-white">Sent to: ${transaction.recipientName}</p>
+                <small class="text-warning">${transaction.recipientBank} - ${transaction.time} - ${transaction.date}</small>
+            </div>
+            <div class="text-danger text-end">
+                <p class="mb-0 fw-bold">- ₦${transaction.tAmount}.00</p>
+                <small class="text-white">Transfer Out</small>
+            </div>
+        </div>`;
+    } 
+    else if (transaction.recipientName === loggedInName) {
+        toAdd = `
+        <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+            <div>
+                <p class="mb-0 fw-bold text-white">Received from: ${transaction.senderName}</p>
+                <small class="text-warning">${transaction.senderBank} - ${transaction.time} - ${transaction.date}</small>
+            </div>
+            <div class="text-success text-end">
+                <p class="mb-0 fw-bold">+ ₦${transaction.amount}.00</p>
+                <small class="text-white">Transfer In</small>
+            </div>
+        </div>`;
     }
+
+    showTable.innerHTML += toAdd;
+});
+
+
+
+
 }
 
 loadHistory();

@@ -86,7 +86,7 @@ const logOut = () => {
 
 
 
-const showTransaction = document.getElementById('showTransaction');
+/*const showTransaction = document.getElementById('showTransaction');
 
 if (overallTransaction.length === 0 || !showTransaction) {
     if (showTransaction) {
@@ -151,4 +151,70 @@ if (overallTransaction.length > 5) {
             <a href="../history/history.html" class="btn btn-sm btn-outline-primary">See All Transactions (${overallTransaction.length}) &rarr;</a>
         </div>
     `;
+}*/
+
+
+
+
+
+
+const showTransaction = document.getElementById('showTransaction');
+
+
+let userTransactions = overallTransaction.filter(t =>
+    t.senderName === loggedInName || t.recipientName === loggedInName
+);
+
+
+if (userTransactions.length === 0) {
+    showTransaction.innerHTML = `
+        <p class="text-center text-muted mt-3">No recent transactions.</p>
+    `;
 }
+
+
+let recentTransactions = [...userTransactions].reverse().slice(0, 5);
+
+showTransaction.innerHTML = "";
+
+
+recentTransactions.forEach(transaction => {
+
+    let toAdd = "";
+
+    if (transaction.senderName === loggedInName) {
+        toAdd = `
+        <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+            <div>
+                <p class="mb-0 fw-bold text-dark">Sent to: ${transaction.recipientName}</p>
+                <small class="text-muted">${transaction.recipientBank} - ${transaction.time} - ${transaction.date}</small>
+            </div>
+            <div class="text-danger text-end">
+                <p class="mb-0 fw-bold">- ₦${transaction.tAmount}.00</p>
+                <small class="text-muted">Transfer Out</small>
+            </div>
+        </div>`;
+    } 
+    else if (transaction.recipientName === loggedInName) {
+        toAdd = `
+        <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+            <div>
+                <p class="mb-0 fw-bold text-dark">Received from: ${transaction.senderName}</p>
+                <small class="text-muted">${transaction.senderBank} - ${transaction.time} - ${transaction.date}</small>
+            </div>
+            <div class="text-success text-end">
+                <p class="mb-0 fw-bold">+ ₦${transaction.amount}.00</p>
+                <small class="text-muted">Transfer In</small>
+            </div>
+        </div>`;
+    }
+
+    showTransaction.innerHTML += toAdd;
+});
+
+
+showTransaction.innerHTML += `
+    <div class="text-center pt-3">
+        <a href="../history/history.html" class="btn btn-sm btn-outline-primary">See All Transactions (${userTransactions.length}) &rarr;</a>
+    </div>
+`;

@@ -171,50 +171,52 @@ const transfer = () => {
 
 
 
-    
-    const showTable = document.getElementById('showTable');
-    const loggedInName = JSON.parse(localStorage.getItem('currentLoggedInUser')) || "Guest";
-    const currentUser = storedUsers.find(user => user.accName === loggedInName);
-    const allTransaction = JSON.parse(localStorage.getItem('transaction')) || [];
-    console.log(allTransaction);
-    console.log('Logged in name:', loggedInName);
-    console.log('Transactions:', allTransaction);
-    console.log('hiii');
-    
+const overallTransaction = JSON.parse(localStorage.getItem('transaction')) || [];
+const loggedInName = JSON.parse(localStorage.getItem('currentLoggedInUser')) || "Guest";
 
-    
 
-    if (allTransaction.length === 0) {
-        showTable.innerHTML = `No Recent Transaction History`;
-    } else {
+const showTable = document.getElementById('showTable');
+let userTransactions = overallTransaction.filter(t =>
+    t.senderName === loggedInName || t.recipientName === loggedInName
+);
 
-        showTable.innerHTML = '';
 
-        const recentTransactions = [...allTransaction].reverse();
+if (userTransactions.length === 0) {
+    showTable.innerHTML = `
+        <p class="text-center text-muted mt-3">No recent transactions.</p>
+    `;
+}
 
-        recentTransactions.forEach((transaction) => {
-            const senderName = transaction.senderName;
-            const recipientName = transaction.recipientName;
 
-            let rowHTML = '';
+let recentTransactions = [...userTransactions].reverse().slice(0, 5);
 
-            if (senderName === loggedInName) {
-                rowHTML = `
-                    <div class="d-flex align-items-center justify-content-between border-bottom p-2">
-                        <button class="text-start" style= "border: none; background-color: transparent">
-                            <p class="mb-0 text-white fw-bold text-dark" >${recipientName}</p>
-                            <small style="color: #f3f4f7" >${transaction.recipientAcc} •  ${transaction.recipientBank}</small><br>
-                            <small style="color: #f3f4f7" >Last Transfer on: ${transaction.date}</small>
+showTable.innerHTML = "";
 
-                            
-                        </button>
-                    </div>
-                `;
-            }
 
-            showTable.innerHTML += rowHTML;
-        });
+recentTransactions.forEach(transaction => {
+
+    let toAdd = "";
+
+    if (transaction.senderName === loggedInName) {
+        toAdd = `
+        <div class="d-flex align-items-center justify-content-between border-bottom py-2">
+            <button onclick="recent( '${transaction.recipientBank}', '${transaction.recipientAcc}')" class= "border-0 w-100 text-start" style="background-color: transparent;">
+                <p class="mb-0 fw-bold text-white"> ${transaction.recipientName}</p>
+                <small class="text-muted">${transaction.recipientAcc} - ${transaction.recipientBank}</small><br>
+                <small class="text-muted">Last transfer on ${transaction.date} - ${transaction.time}</small>
+            </button>
+            
+        </div>`;
     }
 
+    showTable.innerHTML += toAdd;
+});
 
+const bankName = document.getElementById('bankSelect');
+const accNumber = document.getElementById('accountNumber');
 
+const recent = (bank, acc) => {
+    bankName.value = bank;
+    accNumber.value = acc;
+    autoFindReceiver()
+}

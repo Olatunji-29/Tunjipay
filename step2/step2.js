@@ -193,3 +193,29 @@ const signUpButton = () => {
 
     }
 }
+
+showPass.addEventListener('click', ()=> {
+    // console.log(userPassword.value.trim());
+    if(userPassword.type == 'password'){
+        userPassword.type = 'text'
+        showPass.textContent = 'Hide'
+        
+    }else{
+         userPassword.type = 'password'
+        showPass.textContent = 'Show'
+    }
+
+})
+
+showPass2.addEventListener('click', ()=> {
+    // console.log(userConfirmPassword.value.trim());
+    if(userConfirmPassword.type == 'password'){
+        userConfirmPassword.type = 'text'
+        showPass2.textContent = 'Hide'
+        
+    }else{
+         userConfirmPassword.type = 'password'
+        showPass2.textContent = 'Show'
+    }
+
+})

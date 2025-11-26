@@ -55,8 +55,11 @@ const sTransactionOBJ = {
     date: new Date().toLocaleDateString(),
     transId: Math.floor(Math.random() * (100000000000000 - 100000000 + 1)) + 100000000,
     payType: 'Money Transfer'
+
 };
 
+dateReceipt.innerHTML = sTransactionOBJ.date
+timeReceipt.innerHTML = sTransactionOBJ.time
 
 overallTransaction.push(sTransactionOBJ)
 localStorage.setItem('transaction', JSON.stringify(overallTransaction))

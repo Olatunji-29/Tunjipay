@@ -161,8 +161,8 @@ if (overallTransaction.length > 5) {
 const showTransaction = document.getElementById('showTransaction');
 
 
-let userTransactions = overallTransaction.filter(t =>
-    t.senderName === loggedInName || t.recipientName === loggedInName
+let userTransactions = overallTransaction.filter(tran =>
+    tran.senderName === loggedInName || tran.recipientName === loggedInName
 );
 
 

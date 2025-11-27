@@ -40,3 +40,14 @@ const signInButton = () => {
 
     }
 }
+
+
+showPass.addEventListener(('click'), () => {
+    if(password.type === 'password'){
+        password.type = 'text'
+        showPass.textContent = 'Hide'
+    }else{
+        password.type = 'password'
+        showPass.textContent = 'Show'
+    }
+} )
